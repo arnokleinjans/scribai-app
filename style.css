@@ -540,6 +540,7 @@ main {
 .markdown-body li {
     margin-bottom: 0.5rem;
 }
+
 /* --- Mobile Responsiveness --- */
 @media (max-width: 768px) {
     body {
@@ -594,7 +595,13 @@ main {
     }
 
     /* Form Elements */
-    input, textarea, select, .custom-select-trigger, .btn-primary, .btn-outline, .btn-scribai {
+    input,
+    textarea,
+    select,
+    .custom-select-trigger,
+    .btn-primary,
+    .btn-outline,
+    .btn-scribai {
         width: 100%;
     }
 
@@ -616,21 +623,22 @@ main {
     }
 }
 
-    /* Fix template dropdown on mobile */
-    #customTemplateWrapper {
-        flex: 1 1 auto;
-    }
-    
-    #deleteTemplateBtn {
-        width: auto;
-        flex: 0 0 auto;
-    }
+/* Fix template dropdown on mobile */
+#customTemplateWrapper {
+    flex: 1 1 auto;
+}
+
+#deleteTemplateBtn {
+    width: auto;
+    flex: 0 0 auto;
+}
 
 /* --- Collapsible Sidebar --- */
 aside {
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    overflow-x: hidden; /* Prevent content scroll when collapsing */
+    overflow-x: hidden;
+    /* Prevent content scroll when collapsing */
 }
 
 .sidebar-header {
@@ -667,12 +675,14 @@ aside {
     flex-direction: column;
     gap: 2rem;
     transition: opacity 0.2s ease, visibility 0.2s ease;
-    width: 256px; /* Fixed width to prevent wrapping during animation (320px - 2rem*2 padding) */
+    width: 256px;
+    /* Fixed width to prevent wrapping during animation (320px - 2rem*2 padding) */
 }
 
 /* Collapsed State (Desktop) */
 aside.collapsed {
-    width: 80px; /* Just enough for the icon */
+    width: 80px;
+    /* Just enough for the icon */
     padding: 2rem 1rem;
 }
 
@@ -683,7 +693,8 @@ aside.collapsed .sidebar-content {
 }
 
 aside.collapsed .logo {
-    opacity: 0; /* Hide text part of logo, or could just show icon */
+    opacity: 0;
+    /* Hide text part of logo, or could just show icon */
     width: 0;
     overflow: hidden;
     margin: 0;
@@ -697,31 +708,47 @@ aside.collapsed .sidebar-toggle svg {
 @media (max-width: 768px) {
     aside {
         /* Reset absolute width changes from desktop */
-        width: 100% !important; 
+        width: 100% !important;
+        padding: 1.5rem;
+        /* Ensure consistent padding */
         padding-bottom: 0;
     }
 
     aside.collapsed {
-        height: 60px; /* Only header visible */
+        height: auto;
+        /* Let content dictate height instead of fixed 60px */
+        min-height: 70px;
         padding-bottom: 1.5rem;
     }
 
     aside.collapsed .sidebar-content {
-        display: none; /* Entirely remove from flow on mobile */
+        display: none;
+        /* Entirely remove from flow on mobile */
+    }
+
+    .sidebar-header {
+        align-items: center;
+        margin-bottom: 0;
+        /* Override any potential margin pushing it down */
     }
 
     .sidebar-content {
-        width: 100%; /* Take full width on mobile */
+        width: 100%;
+        /* Take full width on mobile */
         padding-bottom: 2rem;
+        margin-top: 1.5rem;
+        /* Add spacing between header and content when expanded */
     }
 
     /* Mobile toggle button rotates 90deg (down/up) instead of left/right */
     aside.collapsed .sidebar-toggle svg {
-        transform: rotate(-90deg); /* Point down to indicate expansion */
+        transform: rotate(-90deg);
+        /* Point down to indicate expansion */
     }
-    
+
     .sidebar-toggle svg {
-        transform: rotate(90deg); /* Point up to indicate collapse */
+        transform: rotate(90deg);
+        /* Point up to indicate collapse */
     }
 
     aside.collapsed .logo {
