@@ -14,103 +14,113 @@
     <aside>
         <div class="sidebar-header">
             <div class="logo">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#logo-gradient)" stroke-width="2.5"
-                stroke-linecap="round" stroke-linejoin="round" class="scribai-logo">
-                <defs>
-                    <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:var(--accent-color);stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:var(--secondary-accent);stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <path d="M18 2L6 14M6 14l-2 6 6-2 12-12M6 14l3-3M17 3l4 4M2 22s5-1 7-3M22 2s-1 5-3 7"></path>
-                <path d="M14 6c1 0 2 1 2 2s-1 2-2 2-2-1-2-2 1-2 2-2z" fill="var(--accent-color)" stroke="none"
-                    opacity="0.3"></path>
-            </svg>
-            Scribai
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#logo-gradient)"
+                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="scribai-logo">
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:var(--accent-color);stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:var(--secondary-accent);stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M18 2L6 14M6 14l-2 6 6-2 12-12M6 14l3-3M17 3l4 4M2 22s5-1 7-3M22 2s-1 5-3 7"></path>
+                    <path d="M14 6c1 0 2 1 2 2s-1 2-2 2-2-1-2-2 1-2 2-2z" fill="var(--accent-color)" stroke="none"
+                        opacity="0.3"></path>
+                </svg>
+                Scribai
+            </div>
+            <button id="sidebarToggle" class="sidebar-toggle" title="Toggle Sidebar">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
         </div>
 
-        <div class="sidebar-section">
-            <h3>🔑 Configuratie</h3>
-            <div class="input-group">
-                <label for="assemblyKey">AssemblyAI API Sleutel</label>
-                <div class="password-wrapper">
-                    <input type="password" id="assemblyKey" placeholder="Voer je sleutel in...">
-                    <button type="button" class="toggle-password" data-target="assemblyKey"
-                        title="Toon/Verberg sleutel">👁️</button>
-                </div>
-                <p class="help-text">Nog geen sleutel? <a href="https://www.assemblyai.com/" target="_blank">Maak hier
-                        gratis aan</a>.</p>
-            </div>
-            <div class="input-group">
-                <label for="geminiKey">Gemini API Sleutel</label>
-                <div class="password-wrapper">
-                    <input type="password" id="geminiKey" placeholder="Voer je sleutel in...">
-                    <button type="button" class="toggle-password" data-target="geminiKey"
-                        title="Toon/Verberg sleutel">👁️</button>
-                </div>
-                <p class="help-text">Koop of genereer <a href="https://aistudio.google.com/" target="_blank">hier je
-                        Google API key</a>.</p>
-            </div>
-        </div>
-
-        <div class="sidebar-section">
-            <h3>🏢 Smart Templates</h3>
-            <div class="input-group">
-                <label for="templateSelect">Kies Template</label>
-                <div style="display: flex; gap: 8px;">
-                    <!-- Oude native select (verborgen gehouden als fallback/backend reference) -->
-                    <select id="templateSelect" style="display: none;"></select>
-
-                    <!-- Nieuwe Custom Dropdown -->
-                    <div class="custom-select-wrapper" id="customTemplateWrapper" style="flex: 1;">
-                        <div class="custom-select-trigger" id="customTemplateTrigger">
-                            <span id="customTemplateText">Kies een template...</span>
-                            <div class="arrow"></div>
-                        </div>
-                        <div class="custom-options" id="customTemplateOptions">
-                            <!-- Opties worden via JS ingeladen -->
-                        </div>
+        <div class="sidebar-content" id="sidebarContent">
+            <div class="sidebar-section">
+                <h3>🔑 Configuratie</h3>
+                <div class="input-group">
+                    <label for="assemblyKey">AssemblyAI API Sleutel</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="assemblyKey" placeholder="Voer je sleutel in...">
+                        <button type="button" class="toggle-password" data-target="assemblyKey"
+                            title="Toon/Verberg sleutel">👁️</button>
                     </div>
-                    <button id="deleteTemplateBtn" class="btn-outline"
-                        style="padding: 0 10px; border-color: var(--danger-color); color: var(--danger-color);"
-                        title="Verwijder geselecteerde template">🗑️</button>
+                    <p class="help-text">Nog geen sleutel? <a href="https://www.assemblyai.com/" target="_blank">Maak
+                            hier
+                            gratis aan</a>.</p>
+                </div>
+                <div class="input-group">
+                    <label for="geminiKey">Gemini API Sleutel</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="geminiKey" placeholder="Voer je sleutel in...">
+                        <button type="button" class="toggle-password" data-target="geminiKey"
+                            title="Toon/Verberg sleutel">👁️</button>
+                    </div>
+                    <p class="help-text">Koop of genereer <a href="https://aistudio.google.com/" target="_blank">hier je
+                            Google API key</a>.</p>
                 </div>
             </div>
-            <div class="input-group">
-                <label for="templateName">Nieuwe Template Naam</label>
-                <input type="text" id="templateName" placeholder="Bijv. E-mail Draft">
-            </div>
-            <div class="input-group">
-                <label for="contextText">Template Instructie (Prompt)</label>
-                <textarea id="contextText" rows="6"
-                    placeholder="Beschrijf hier wat de AI moet doen met het transcript..."></textarea>
-            </div>
-            <button id="saveTemplateBtn" class="btn-outline" style="width: 100%;">💾 Template Opslaan / Updaten</button>
-        </div>
 
-        <div class="sidebar-section">
-            <h3>👥 Gesprekspartners</h3>
-            <div class="input-group">
-                <textarea id="namesText" rows="2" placeholder="Arno, Kitty, Jeroen"></textarea>
-                <p class="help-text">Zet hier de namen van de sprekers, gescheiden door een komma.</p>
+            <div class="sidebar-section">
+                <h3>🏢 Smart Templates</h3>
+                <div class="input-group">
+                    <label for="templateSelect">Kies Template</label>
+                    <div style="display: flex; gap: 8px;">
+                        <!-- Oude native select (verborgen gehouden als fallback/backend reference) -->
+                        <select id="templateSelect" style="display: none;"></select>
+
+                        <!-- Nieuwe Custom Dropdown -->
+                        <div class="custom-select-wrapper" id="customTemplateWrapper" style="flex: 1;">
+                            <div class="custom-select-trigger" id="customTemplateTrigger">
+                                <span id="customTemplateText">Kies een template...</span>
+                                <div class="arrow"></div>
+                            </div>
+                            <div class="custom-options" id="customTemplateOptions">
+                                <!-- Opties worden via JS ingeladen -->
+                            </div>
+                        </div>
+                        <button id="deleteTemplateBtn" class="btn-outline"
+                            style="padding: 0 10px; border-color: var(--danger-color); color: var(--danger-color);"
+                            title="Verwijder geselecteerde template">🗑️</button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="templateName">Nieuwe Template Naam</label>
+                    <input type="text" id="templateName" placeholder="Bijv. E-mail Draft">
+                </div>
+                <div class="input-group">
+                    <label for="contextText">Template Instructie (Prompt)</label>
+                    <textarea id="contextText" rows="6"
+                        placeholder="Beschrijf hier wat de AI moet doen met het transcript..."></textarea>
+                </div>
+                <button id="saveTemplateBtn" class="btn-outline" style="width: 100%;">💾 Template Opslaan /
+                    Updaten</button>
             </div>
-        </div>
 
-
-        <div class="sidebar-section">
-            <h3>📄 Oud Transcript Laden</h3>
-            <div class="input-group">
-                <input type="file" id="transcriptInput" accept=".md" style="display: none;">
-                <button id="loadTranscriptBtn" class="btn-outline" style="width: 100%; margin-bottom: 8px;">Kies .md
-                    bestand...</button>
-                <p id="loadedTranscriptPath" class="help-text"
-                    style="word-break: break-all; color: var(--accent-light);">Geen bestand ingeladen</p>
+            <div class="sidebar-section">
+                <h3>👥 Gesprekspartners</h3>
+                <div class="input-group">
+                    <textarea id="namesText" rows="2" placeholder="Arno, Kitty, Jeroen"></textarea>
+                    <p class="help-text">Zet hier de namen van de sprekers, gescheiden door een komma.</p>
+                </div>
             </div>
-        </div>
 
-        </div>
-        <div style="padding: 1rem;">
-            <button id="saveSettings" class="btn-primary" style="width: 100%;">Alles Opslaan</button>
+
+            <div class="sidebar-section">
+                <h3>📄 Oud Transcript Laden</h3>
+                <div class="input-group">
+                    <input type="file" id="transcriptInput" accept=".md" style="display: none;">
+                    <button id="loadTranscriptBtn" class="btn-outline" style="width: 100%; margin-bottom: 8px;">Kies .md
+                        bestand...</button>
+                    <p id="loadedTranscriptPath" class="help-text"
+                        style="word-break: break-all; color: var(--accent-light);">Geen bestand ingeladen</p>
+                </div>
+            </div>
+
+            <div style="padding: 1rem 0;">
+                <button id="saveSettings" class="btn-primary" style="width: 100%;">Alles Opslaan</button>
+            </div>
         </div>
     </aside>
 
