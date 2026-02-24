@@ -25,13 +25,68 @@
 
 body {
     background-color: var(--bg-color);
-    background-image:
-        radial-gradient(circle at top right, rgba(139, 92, 246, 0.1), transparent),
-        radial-gradient(circle at bottom left, rgba(6, 182, 212, 0.1), transparent);
     color: var(--text-primary);
     min-height: 100vh;
     display: flex;
     overflow-x: hidden;
+    position: relative;
+}
+
+/* --- Animated Wave Background --- */
+.wave-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    /* Align waves to the bottom */
+    left: 0;
+    width: 200%;
+    /* Wider than screen for seamless animation */
+    height: 60vh;
+    /* Adjust height of the waves */
+    transform-origin: center bottom;
+}
+
+.wave1 {
+    animation: flowWave 15s linear infinite;
+    z-index: 1;
+}
+
+.wave2 {
+    animation: flowWave 20s linear infinite reverse;
+    z-index: 2;
+    bottom: -5vh;
+    /* Shift slightly down */
+}
+
+.wave3 {
+    animation: flowWave 25s ease-in-out infinite alternate;
+    z-index: 3;
+    bottom: -10vh;
+}
+
+@keyframes flowWave {
+    0% {
+        transform: translateX(0) scaleY(1);
+    }
+
+    50% {
+        transform: translateX(-25%) scaleY(1.1);
+        /* Slight vertical pulse */
+    }
+
+    100% {
+        transform: translateX(-50%) scaleY(1);
+    }
 }
 
 /* Sidebar Styling */
