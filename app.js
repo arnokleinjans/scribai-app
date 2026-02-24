@@ -403,13 +403,18 @@ function showTranscript(transcript) {
             const content = parts.slice(1).join(':').trim();
 
             div.innerHTML = `
-                <div class="speaker-header">
+                <div class="speaker-header" style="z-index: ${999 - dom.transcriptLines.children.length}; position: relative;">
                     <span class="speaker-tag" data-speaker="${currentSpeakerId}">${rawName}</span>
-                    <select class="name-select" onchange="handleSpeakerRename(this)">
-                        <option value="">Anderen...</option>
-                        ${namen.map(n => `<option value="${n}">${n}</option>`).join('')}
-                        <option value="other">Handmatig invullen...</option>
-                    </select>
+                    <div class="custom-select-wrapper speaker-select-wrapper" style="width: auto; min-width: 180px;">
+                        <div class="custom-select-trigger speaker-select-trigger" style="padding: 6px 12px; font-size: 0.85rem; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);">
+                            <span class="speaker-select-text">Anderen...</span>
+                            <div class="arrow"></div>
+                        </div>
+                        <div class="custom-options speaker-options">
+                            ${namen.map(n => `<div class="custom-option speaker-option" data-value="${n}">${n}</div>`).join('')}
+                            <div class="custom-option speaker-option" data-value="other">Handmatig invullen...</div>
+                        </div>
+                    </div>
                 </div>
                 <p>${content}</p>
             `;
@@ -418,6 +423,33 @@ function showTranscript(transcript) {
         }
 
         dom.transcriptLines.appendChild(div);
+    });
+
+    // Event listeners voor de nieuwe custom dropdowns
+    dom.transcriptLines.querySelectorAll('.speaker-select-wrapper').forEach(wrapper => {
+        const trigger = wrapper.querySelector('.speaker-select-trigger');
+        const options = wrapper.querySelectorAll('.speaker-option');
+        // Navigeer via DOM: wrapper -> speaker-header -> speaker-tag
+        const speakerTag = wrapper.parentElement.querySelector('.speaker-tag');
+        const currentSpeakerId = speakerTag.getAttribute('data-speaker');
+
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            // Sluit eerst alle andere open dropdowns
+            document.querySelectorAll('.custom-select-wrapper.open').forEach(el => {
+                if (el !== wrapper) el.classList.remove('open');
+            });
+            wrapper.classList.toggle('open');
+        });
+
+        options.forEach(opt => {
+            opt.addEventListener('click', (e) => {
+                e.stopPropagation();
+                wrapper.classList.remove('open');
+                const val = opt.getAttribute('data-value');
+                handleSpeakerRename(currentSpeakerId, val, speakerTag, wrapper);
+            });
+        });
     });
 
     updateStatus('Transcript Gereed', false);
@@ -434,18 +466,14 @@ function showMinutes(minutes) {
     dom.instructionText.innerText = 'Klaar! Bekijk de gegenereerde output hieronder.';
 }
 
-// Wordt aangeroepen vanuit de dropdowns
-window.handleSpeakerRename = (selectEl) => {
-    let newName = selectEl.value;
+// Wordt aangeroepen vanuit de custom dropdowns
+window.handleSpeakerRename = (currentSpeakerId, newName, tag, wrapper) => {
     if (!newName) return;
-
-    const tag = selectEl.previousElementSibling;
-    const currentSpeakerId = tag.getAttribute('data-speaker');
 
     if (newName === 'other') {
         newName = prompt(`Welke naam wil je geven aan ${currentSpeakerId}?`);
         if (!newName) {
-            selectEl.value = ''; // Reset dropdown
+            if (wrapper) wrapper.querySelector('.speaker-select-text').innerText = 'Anderen...';
             return;
         }
     }
@@ -486,9 +514,11 @@ window.handleSpeakerRename = (selectEl) => {
         t.style.backgroundColor = 'var(--success-color)';
         t.style.color = '#fff';
 
-        // Reset dropdown zodat hij er netjes uitziet
-        const drop = t.nextElementSibling;
-        if (drop) drop.value = '';
+        // Visuele reset van de dropdown text
+        const wrapperEl = t.nextElementSibling;
+        if (wrapperEl && wrapperEl.classList.contains('speaker-select-wrapper')) {
+            wrapperEl.querySelector('.speaker-select-text').innerText = 'Anderen...';
+        }
     });
 
     console.log(`${currentSpeakerId} hernoemd naar ${newName}`);
@@ -505,10 +535,14 @@ function attachEventListeners() {
         dom.customTemplateWrapper.classList.toggle('open');
     });
 
-    // Sluit dropdown als er ergens anders wordt geklikt
+    // Sluit dropdowns als er ergens anders wordt geklikt
     document.addEventListener('click', (e) => {
         if (!dom.customTemplateWrapper.contains(e.target)) {
             dom.customTemplateWrapper.classList.remove('open');
+        }
+
+        if (!e.target.closest('.speaker-select-wrapper')) {
+            document.querySelectorAll('.speaker-select-wrapper.open').forEach(el => el.classList.remove('open'));
         }
     });
 
