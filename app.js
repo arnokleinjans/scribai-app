@@ -709,3 +709,28 @@ function getTimestampedFilename(base) {
 
 // Run app
 init();
+
+// --- Sidebar Toggle Logic ---
+const sidebarToggle = document.getElementById('sidebarToggle');
+const sidebar = document.querySelector('aside');
+
+function initSidebar() {
+    const isMobile = window.innerWidth <= 768;
+    const storedState = localStorage.getItem('scribai_sidebar_collapsed');
+    
+    // On mobile, default to collapsed unless explicitly saved otherwise
+    // On desktop, default to open unless specifically saved as collapsed
+    if (storedState === 'true' || (isMobile && storedState !== 'false')) {
+        sidebar.classList.add('collapsed');
+    }
+    
+    sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+        const isCollapsed = sidebar.classList.contains('collapsed');
+        localStorage.setItem('scribai_sidebar_collapsed', isCollapsed);
+    });
+}
+
+// Call initSidebar after DOM is loaded or at the end of init()
+// Since app.js is loaded at the end of body, we can just call it here
+initSidebar();

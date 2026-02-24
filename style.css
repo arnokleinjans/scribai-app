@@ -625,3 +625,107 @@ main {
         width: auto;
         flex: 0 0 auto;
     }
+
+/* --- Collapsible Sidebar --- */
+aside {
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow-x: hidden; /* Prevent content scroll when collapsing */
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.sidebar-toggle {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.sidebar-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+}
+
+.sidebar-toggle svg {
+    transition: transform 0.3s ease;
+}
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    width: 256px; /* Fixed width to prevent wrapping during animation (320px - 2rem*2 padding) */
+}
+
+/* Collapsed State (Desktop) */
+aside.collapsed {
+    width: 80px; /* Just enough for the icon */
+    padding: 2rem 1rem;
+}
+
+aside.collapsed .sidebar-content {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+aside.collapsed .logo {
+    opacity: 0; /* Hide text part of logo, or could just show icon */
+    width: 0;
+    overflow: hidden;
+    margin: 0;
+}
+
+aside.collapsed .sidebar-toggle svg {
+    transform: rotate(180deg);
+}
+
+/* Mobile Toggle Adjustments */
+@media (max-width: 768px) {
+    aside {
+        /* Reset absolute width changes from desktop */
+        width: 100% !important; 
+        padding-bottom: 0;
+    }
+
+    aside.collapsed {
+        height: 60px; /* Only header visible */
+        padding-bottom: 1.5rem;
+    }
+
+    aside.collapsed .sidebar-content {
+        display: none; /* Entirely remove from flow on mobile */
+    }
+
+    .sidebar-content {
+        width: 100%; /* Take full width on mobile */
+        padding-bottom: 2rem;
+    }
+
+    /* Mobile toggle button rotates 90deg (down/up) instead of left/right */
+    aside.collapsed .sidebar-toggle svg {
+        transform: rotate(-90deg); /* Point down to indicate expansion */
+    }
+    
+    .sidebar-toggle svg {
+        transform: rotate(90deg); /* Point up to indicate collapse */
+    }
+
+    aside.collapsed .logo {
+        opacity: 1;
+        width: auto;
+    }
+}
