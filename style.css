@@ -540,3 +540,78 @@ main {
 .markdown-body li {
     margin-bottom: 0.5rem;
 }
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    aside {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 1.5rem;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        /* Flexbox for more compact layout */
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    main {
+        padding: 1.5rem;
+        width: 100%;
+    }
+
+    /* Record Container Adjustments */
+    .record-container {
+        padding: 2.5rem 1rem;
+        gap: 1.5rem;
+    }
+
+    .record-btn {
+        width: 100px;
+        height: 100px;
+    }
+
+    .record-btn svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* Typography & Sizing */
+    .logo {
+        justify-content: center;
+        margin-bottom: 0;
+    }
+
+    h2#instructionText {
+        font-size: 1.1rem;
+        text-align: center;
+    }
+
+    /* Form Elements */
+    input, textarea, select, .custom-select-trigger, .btn-primary, .btn-outline, .btn-scribai {
+        width: 100%;
+    }
+
+    /* Flow Actions */
+    .card-actions.flow-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Speaker Lines */
+    .speaker-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .speaker-select-wrapper {
+        width: 100% !important;
+    }
+}
