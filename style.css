@@ -615,3 +615,13 @@ main {
         width: 100% !important;
     }
 }
+
+    /* Fix template dropdown on mobile */
+    #customTemplateWrapper {
+        flex: 1 1 auto;
+    }
+    
+    #deleteTemplateBtn {
+        width: auto;
+        flex: 0 0 auto;
+    }
