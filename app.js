@@ -42,8 +42,6 @@ const dom = {
     loadedTranscriptPath: document.getElementById('loadedTranscriptPath'),
     regenerateBtn: document.getElementById('regenerateBtn'),
     recordBtn: document.getElementById('recordBtn'),
-    statusDot: document.getElementById('statusDot'),
-    statusText: document.getElementById('statusText'),
     timer: document.getElementById('timer'),
     instructionText: document.getElementById('instructionText'),
     results: document.getElementById('results'),
@@ -197,8 +195,8 @@ function saveSettings() {
 
 // --- UI Helpers ---
 function updateStatus(text, isActive) {
-    dom.statusText.innerText = text;
-    dom.statusDot.className = `status-dot ${isActive ? 'active' : ''}`;
+    // Status overgezet naar instructionText of console, want de status-bar is verwijderd
+    dom.instructionText.innerText = text;
 }
 
 function updateTimer() {
@@ -717,13 +715,13 @@ const sidebar = document.querySelector('aside');
 function initSidebar() {
     const isMobile = window.innerWidth <= 768;
     const storedState = localStorage.getItem('scribai_sidebar_collapsed');
-    
+
     // On mobile, default to collapsed unless explicitly saved otherwise
     // On desktop, default to open unless specifically saved as collapsed
     if (storedState === 'true' || (isMobile && storedState !== 'false')) {
         sidebar.classList.add('collapsed');
     }
-    
+
     sidebarToggle.addEventListener('click', () => {
         sidebar.classList.toggle('collapsed');
         const isCollapsed = sidebar.classList.contains('collapsed');

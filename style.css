@@ -238,25 +238,7 @@ main {
     gap: 2rem;
 }
 
-.status-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-}
 
-.status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--text-secondary);
-}
-
-.status-dot.active {
-    background: var(--success-color);
-    box-shadow: 0 0 10px var(--success-color);
-}
 
 /* Record Button Styling */
 .record-container {
